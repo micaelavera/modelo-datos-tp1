@@ -1,5 +1,5 @@
-= Introducción a la Programación: Trabajo Práctico 1
-Cristina Fernández_de_Kirchner <cfk@gmail.com>; Nestor Kirchner <nestor@gmail.com>
+= Bases de Datos I: Trabajo Práctico 1
+Liz Moreno <cfk@gmail.com>; Veronica Juarez <nestor@gmail.com>; Mica Vera <micavera2010@hotmail.com>
 {docdate}. Docentes Eva Perón y Juan Perón (COM-08)
 :numbered:
 :source-highlighter: highlight.js
