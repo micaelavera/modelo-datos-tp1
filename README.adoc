@@ -10,6 +10,8 @@ que ayude a entender el trabajo práctico.
 
 == Introducción
 
+En este TP bien peronista, nacional y popular algo.
+
 Descripción del trabajo práctico. Aquí se puede copiar textual el [ó
 parte del] enunciado del trabajo práctico, de considerarse necesario.
 
