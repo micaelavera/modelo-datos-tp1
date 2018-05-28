@@ -12,7 +12,7 @@ que ayude a entender el trabajo práctico.
 
 En este TP bien peronista, nacional y popular algo.
 
-Descripción del trabajo práctico. Aquí se puede copiar textual el [ó
+Descripción del trabajo práctico peronista de bases de datos. Aquí se puede copiar textual el [ó
 parte del] enunciado del trabajo práctico, de considerarse necesario.
 
 *(Longitud: 3–5 párrafos)*
