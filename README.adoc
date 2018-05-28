@@ -19,6 +19,11 @@ parte del] enunciado del trabajo práctico, de considerarse necesario.
 
 == Descripción
 
+[source, sql]
+----
+create table alumno (legajo int, nombre text, apellido text);
+----
+
 En esta sección pueden incluirse las dificultades que tuvieron, las
 soluciones encontradas, y las decisiones que fueron tomando a lo largo
 del trabajo práctico.
