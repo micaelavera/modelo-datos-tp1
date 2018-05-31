@@ -3,31 +3,36 @@ drop database if exists tarjeta;
 create database tarjeta;
 
 create table cliente(dni integer,
-			nombre varchar(64),
-			apellido varchar(64),
-			direccion varchar(64),
+			 nombre varchar(64),
+			 apellido varchar(64),
+			 direccion varchar(64),
 			 telefono integer);
 
-create table tarjeta(numero integer,
-			limite integer, 
-			codigoSeguridad integer, 
-			fecha_vencimiento date,
-			suspension boolean);
+create table tarjeta(codigo_tarjeta integer,
+			 codigo_seguridad integer, 
+			 dni_cliente integer,
+			 limite_compra integer,
+			 saldo real,
+			 fecha_vencimiento date,
+			 estado_tarjeta varchar(64));
+		/* estado_tarjeta comprende el estado de vigencia,suspendida,etc, se podria poner un enum */
 
-create table comercio(cod_comercio integer,
-			nombre varchar(64),
-			direccion varchar(64),
-			codigo_postal integer);
+create table comercio(codigo_comercio integer,
+			 nombre varchar(64),
+			 direccion varchar(64),
+			 codigo_postal integer);
 
-create table compra(numero_tarjeta integer,
-			cod_comercio integer,
-			fecha date,
+create table compra(codigo_compra integer, 
+             numero_tarjeta integer,
+			 cod_comercio integer,
+			 fecha date,
+			 horario time,
 			 monto real);
 
-create table factura(total_pagar real,
-		 nro_tarjeta integer,
-		nro_factura integer );		
-
+create table factura(codigo_factura integer,
+			 periodo_facturado integer,
+		     total_pagar real,
+		 	 numero_tarjeta integer);		
 
 
 alter table cliente add constraint cliente_pk primary key (dni);
