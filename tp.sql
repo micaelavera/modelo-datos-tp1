@@ -11,7 +11,7 @@ create table compra(numero_tarjeta integer);
 
 
 alter table cliente add constraint cliente_pk primary key (dni);
-alter table tarjeta add constraint direccion_pk primary key (codigoSeguridad);
+alter table tarjeta add constraint tarjeta_pk primary key (numero);
 alter table comercio add constraint compra_pk primary key (codigo_postal);
 
 alter table compra add constraint compra_fk1 foreign key (numero_tarjeta) references tarjeta(numero);
