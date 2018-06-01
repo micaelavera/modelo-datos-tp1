@@ -24,14 +24,24 @@ create table comercio(codigo_comercio integer,
 
 create table compra(codigo_compra integer, 
              numero_tarjeta integer,
-			 cod_comercio integer,
 			 fecha date,
-			 horario time,
-			 monto real);
+			 horario time);
 
 create table factura(codigo_factura integer,
+					 dni_cliente integer,
+					 codigo_comercio integer,
+					 total_pagar real,
+					 detalle_articulo integer);
+--detalle es la fk de factura 
+
+create table detalle(codigo_articulo integer,
+			cantidad integer,
+			precio_unitario real);
+
+create table resumen(codigo_factura integer,
 			 periodo_facturado integer,
-		     total_pagar real,
+		     fecha_vencimiento date,
+			 total_pagar real,
 		 	 numero_tarjeta integer);		
 
 
