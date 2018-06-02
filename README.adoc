@@ -1,19 +1,21 @@
 = Bases de Datos I: Trabajo Práctico 1
-Liz Moreno <cfk@gmail.com>; Veronica Juarez <nestor@gmail.com>; Mica Vera <micavera2010@hotmail.com>
-{docdate}. Docentes Eva Perón y Juan Perón (COM-08)
+Liz Moreno López <lilita.moreno@hotmail.com>; Micaela Vera <micavera2010@hotmail.com>; Veronica Juarez <veronicajuarez01@hotmail.com>
+{docdate}. Docentes Daniel Rondelli,  Mariano  (COM-08)
 :numbered:
 :source-highlighter: highlight.js
 :tabsize: 4
 
 Se debe ser breve, conciso, y simple. Se debe incluir sólo lo relevante
-que ayude a entender el trabajo práctico.
+que ayude a entender el trabajo práctico. Ok
 
 == Introducción
 
-En este TP bien peronista, nacional y popular algo.
+En este trabajo práctico debemos diseñar un modelo de datos relativo a operaciones de tarjetas de crédito. Las tarjetas no permiten 
+a los usuarios financiar una compra en cuotas, todo se realiza en un solo pago. Una persona puede tener más de una tarjeta pero no 
+deben existir extensiones de la misma. Las tarjetas podrán estar expiradas en su fecha de vencimiento.
+Las tarjetas tendrán consumos que deben surgir a partir de las compras que se realicen en los distintos comercios. 
+También, nos interesan los datos de los clientes, de las tarjetas de crédito con sus vencimientos y límites, entre otros. (ver)
 
-Descripción del trabajo práctico peronista de bases de datos. Aquí se puede copiar textual el [ó
-parte del] enunciado del trabajo práctico, de considerarse necesario.
 
 *(Longitud: 3–5 párrafos)*
 
