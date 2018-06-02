@@ -1,6 +1,6 @@
 = Bases de Datos I: Trabajo Práctico 1
-Liz Moreno López <lilita.moreno@hotmail.com>; Micaela Vera <micavera2010@hotmail.com>; Veronica Juarez <veronicajuarez01@hotmail.com>
-{docdate}. Docentes Daniel Rondelli,  Mariano  (COM-08)
+Liz Moreno López <lilita.moreno@hotmail.com>; Micaela Vera <micavera2010@hotmail.com>; Verónica Juarez <veronicajuarez01@hotmail.com>
+{docdate}. Docentes Hernán Rondelli y Mariano Trigila (COM-01)
 :numbered:
 :source-highlighter: highlight.js
 :tabsize: 4
@@ -36,6 +36,31 @@ funciona.
 *(Longitud: 3–5 párrafos)*
 
 == Implementación
+A continuación se exponen los schemas de las tablas diseñadas como así la explicación de los atributos incorporados en dichas tablas.
+
+En primer lugar, diseñamos una tabla *cliente*, los atributos que tienen lugar en este modelo son el _dni_ que sera el identificador único de dicha tabla, es decir, es la _primary key_. Luego, se tienen los datos necesarios del cliente, los cuales son el nombre, apellido y la dirección, además, se debe especificar el número de teléfono para así el Call Center pueda notificar al cliente de un posible fraude con su tarjeta.
+
+[source, sql]
+----
+create table cliente(
+        dni integer,
+        nombre varchar(64),
+        apellido varchar(64),
+        direccion varchar(64),
+        telefono integer
+);   
+----
+
+Como nombramos anteriormente, el dni del cliente es una _primary key_ y agregamos este valor en la tabla con la siguiente sentencia:
+
+[source, sql]
+----
+alter table cliente add constraint cliente_pk primary key (dni); 
+----
+
+
+
+
 
 En esta sección se incluye el código fuente correctamente formateado—y
 comentado, si corresponde. Además, por cada fragmento de código

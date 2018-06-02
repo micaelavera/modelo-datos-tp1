@@ -4,7 +4,7 @@ create database tarjeta;
 \c tarjeta
 
 create table cliente(
-	    dni integer,
+	        dni integer,
 		nombre varchar(64),
 		apellido varchar(64),
 		direccion varchar(64),
@@ -12,9 +12,9 @@ create table cliente(
 );
 
 create table tarjeta(
-	    numero_tarjeta integer,
+	        numero_tarjeta integer,
 		dni_cliente integer,
-		codigo_seguridad integer, 
+		codigo_seguridad integer,
 		limite_compra integer,
 		saldo real,
 		fecha_vencimiento date,
@@ -23,23 +23,23 @@ create table tarjeta(
 		/* estado_tarjeta comprende el estado de vigencia,suspendida,etc, se podria poner un enum */
 
 create table comercio(
-	    codigo_comercio integer,
-	    nombre varchar(64),
+	        codigo_comercio integer,
+		nombre varchar(64),
 		direccion varchar(64),
 		codigo_postal integer
 );
 
 create table compra(
-	    codigo_compra integer, 
-        numero_tarjeta integer,
+	        codigo_compra integer,
+		numero_tarjeta integer,
 		fecha date,
-	    horario time
+		horario time
 );
 
 create table factura(
-	    codigo_factura integer,
+	        codigo_factura integer,
 		dni_cliente integer,
-	    codigo_comercio integer,
+		codigo_comercio integer,
 		total_pagar real,
 		detalle_articulo integer
 );
@@ -47,15 +47,15 @@ create table factura(
 -- ver si compra contiene a factura o viceversa.
 
 create table detalle(
-	    codigo_articulo integer,
-   		cantidad integer,
+	        codigo_articulo integer,
+		cantidad integer,
 		precio_unitario real
 );
 
 create table resumen(
-	    codigo_factura integer,
+	        codigo_factura integer,
 		periodo_facturado integer,
-	    fecha_vencimiento date,
+		fecha_vencimiento date,
 		total_pagar real,
 		numero_tarjeta integer
 );		
