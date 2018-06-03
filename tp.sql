@@ -65,7 +65,7 @@ alter table tarjeta add constraint tarjeta_pk primary key (numero_tarjeta);
 alter table comercio add constraint comercio_pk primary key (codigo_comercio);
 alter table compra add constraint compra_pk primary key(codigo_compra);
 alter table factura add constraint factura_pk primary key (codigo_factura);
-alter table detalle add constrain detalle_pk primery key (codigo_articulo);
+alter table detalle add constraint detalle_pk primery key (codigo_articulo);
 
 --FOREIGN KEY--
 alter table tarjeta add constraint tarjeta_fk0 foreign key (dni_cliente) references cliente(dni);
