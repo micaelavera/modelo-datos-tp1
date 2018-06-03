@@ -66,6 +66,7 @@ alter table comercio add constraint comercio_pk primary key (codigo_comercio);
 alter table compra add constraint compra_pk primary key(codigo_compra);
 
 --FOREIGN KEY--
+alter table tarjeta add constraint tarjeta_fk0 foreign key(dni_cliente) references cliente(dni);
 alter table compra add constraint compra_fk0 foreign key (numero_tarjeta) references tarjeta(numero_tarjeta);
 
 --agregar pks y fks que faltan y arreglar nombres que se "cambiaron"
