@@ -68,7 +68,8 @@ alter table compra add constraint compra_pk primary key(codigo_compra);
 --FOREIGN KEY--
 alter table tarjeta add constraint tarjeta_fk0 foreign key (dni_cliente) references cliente(dni);
 alter table compra add constraint compra_fk0 foreign key (numero_tarjeta) references tarjeta(numero_tarjeta);
-alter table factura add constraint factura_fk0 foreing key (dni_cliente) references cliente (dni);
-alter table factura add constraint factura_fk1 foreing key (detalle_articulo) references detalle(codigo_articulo);
+alter table factura add constraint factura_fk0 foreign key (dni_cliente) references cliente (dni);
+alter table factura add constraint factura_fk1 foreign key (detalle_articulo) references detalle(codigo_articulo);
+alter table detalle add constraint detalle_fk0 foreign key (codigo_factura) references factura(codigo_factura);
 
 --agregar pks y fks que faltan y arreglar nombres que se "cambiaron"
