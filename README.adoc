@@ -71,11 +71,10 @@ alter table cliente add constraint cliente_pk primary key (dni);
 ----
 
 
-
 === Tabla tarjeta
 *Tarjeta* es una tabla cuya _primary key_ es el número identificatorio de dicha tarjeta que consta de 16 dígitos, otro de los atributos de este schema es el propietario de la tarjeta, es decir,  el dni del cliente. Este sería la _FK_ de dicha tabla. 
 
-//Aclaramos que el dni del cliente es la FK de la tarjeta y no manera inversa, ya que en el enunciado se especifico que un cliente puede tener mas de una tarjeta.
+//Aclaramos que el dni del cliente es la FK de la tarjeta y no de manera inversa, ya que en el enunciado se especifico que un cliente puede tener mas de una tarjeta.
 
 Además, se tiene el _código de seguridad_ que consta de 3 a 4 dígitos dependiendo del banco, el _límite de compra_ diario de la tarjeta, es decir, el tope máximo que el banco financia a través de la tarjeta de crédito.
 Colocamos un atributo denominado _fecha_vencimiento_ que se refiere a la fecha de expiracion de la tarjeta.
@@ -84,6 +83,7 @@ Por ultimo, el número de la tarjeta debe corresponder a una tarjeta vigente, no
 
 Para abarcar todos los estados de la tarjeta, incorporamos un atributo _estado_tarjeta_ en la tabla.
 
+*falta agregar mas cosas*
 
 [source,sql]
 ----
@@ -98,11 +98,11 @@ create table tarjeta(
 );
 ----
 
-El numero de la tarjeta es la PK de la tabla y se define de la siguiente manera:
+El número de la tarjeta es la _PK_ de la tabla y se define de la siguiente manera:
 
 
 
-Agregamos el dni del cliente como FK ya que 
+Agregamos el dni del cliente como _FK_ ya que 
 
 [source,sql]
 ----
@@ -111,6 +111,40 @@ alter table tarjeta add constraint tarjeta_fk0 foreign key (dni_cliente) referen
 
 
 === Tabla comercio
+Agregamos la tabla *comercio* que consta de distintos atributos, un numero identificatorio de comercio que denominamos _codigo_comercio_, el nombre, dirección y el codigo postal de dicho comercio.
+Colocamos el codigo postal del comercio en caso de emitir una alerta en el momento que la tarjeta registre compras en el mismo o diferente codigo postal de los comercios en el transcurso de un tiempo dado.
+
+[source,sql]
+----
+create table comercio(
+        codigo_comercio integer,
+        nombre varchar(64),
+        direccion varchar(64),
+        codigo_postal integer
+); 
+----
+
+Añadimos la _PK_ de la tabla comercio con la siguiente sentencia:
+
+[source,sql]
+----
+alter table comercio add constraint comercio_pk primary key (codigo_comercio);
+----
+
+=== Tabla compra
+
+
+
+=== Tabla factura
+
+
+=== Tabla detalle
+
+
+
+=== Tabla resumen
+
+
 
 //En esta sección se incluye el código fuente correctamente formateado—y comentado, si corresponde. Además, por cada fragmento de código relevante—i.e. función, método, procedimiento—se debe dar una descripción general, decir qué hace, y especificar los parámetros que toma la función/método/procedimiento, junto con los valores que devuelve ó modifica.
 
