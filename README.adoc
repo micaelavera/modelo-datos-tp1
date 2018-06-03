@@ -135,7 +135,7 @@ alter table comercio add constraint comercio_pk primary key (codigo_comercio);
 ----
 
 === Tabla compra
-La tabla compra  cuya _primary key_ es el número identificario de dicha compra que consta de * 6 digitos*, otros de los atributos de este schema es el _numero_tarjeta_  del cliente ya que el pago de la compra se
+La tabla compra  cuya _primary key_ es el número identificario de dicha compra que consta de * 6 dígitos*, otros de los atributos de este schema es el _numero_tarjeta_  del cliente ya que el pago de la compra se
 realiza con la tarjeta de crédito. Además tenemos el atrubito _horario_ que se refiere a las compras en un lapso de tiempo como ya mencionamos en la introducción.
 
 [source,sql]
@@ -156,8 +156,8 @@ alter table compra add constraint compra_pk primary key (codigo_compra);
 
 
 === Tabla factura
-Una *factura* es un documento de índole comercial que indica la compraventa de un bien o servicio, tiene validez legal y fiscal, entre otras cosas, debe incluir toda la información de la operación.
-Entre la informacion que incluye una factura son el _codido_factura_ que es la _primary key_ de la tabla, el siguiente atributo es el _dni_cliente_, además el _codigo_comercio_  que es la _foreign key_ de la tabla.
+Una *factura* es un documento de índole comercial que indica la compra-venta de un bien o servicio, tiene validez legal y fiscal, entre otras cosas, debe incluir toda la información de la operación.
+Entre la informacion que incluye una factura son el _codido_factura_ que es la _primary key_ de la tabla, el siguiente atributo es el _dni_cliente_, además el _codigo_comercio_  que es la _foreign key_ de la tabla. 
 Como toda *factura*, esta incluye _detalle_artictulo_ que tambien es la _FK_ de la tabla.
 [source,sql]
 ----
@@ -169,8 +169,7 @@ create table factura(
 		detalle_articulo integer
 );
 ----
---detalle es la fk de factura 
--- ver si compra contiene a factura o viceversa.
+//detalle es la fk de factura ---- ver si compra contiene a factura o viceversa. \creo que no\
 }
 Añadimos la PK de la tabla factura de la siguiente manera:
 [source,sql]
@@ -180,15 +179,15 @@ alter table factura add constraint factura_pk primary key (codigo_factura);
 También  añadimos las FK de la tabla factura de la siguiente manera:
 [source,sql]
 ----
-alter table factura add constraint factura_fk0 foreing key (dni_cliente) references cliente (dni);
-alter table factura add constraint factura_fk1 foreing key (detalle_articulo) references detalle(codigo_articulo);
+alter table factura add constraint factura_fk0 foreign key (dni_cliente) references cliente (dni);
+alter table factura add constraint factura_fk1 foreign key (detalle_articulo) references detalle(codigo_articulo);
 ----
 
 
 
 === Tabla detalle
-El detalle de la factura generalmente se encuentra en el centro de la misma. 
-
+El *detalle* de la factura generalmente se encuentra en el centro de la misma. La _primary key_ de esta tabla es _codigo_articulo_ que el número identificatorio de articulo comprado.
+además tiene los siguientes atributos: _cantidad_ se refiere a la cantidad de artículos, el _precio_unitario_ del artículo.
 [source,sql]
 ----
 create table detalle(
@@ -197,10 +196,35 @@ create table detalle(
 		precio_unitario real
 );
 ----
-
+Añadimos la _PK_ del detalle de la siguiente manera:
+[source,sql]
+----
+alter table detalle add constrain detalle_pk primery key (codigo_articulo);
+----
 
 === Tabla resumen
+El *resumen* de la *factura* *???????????????* es cuyo documento donde se encuentran toda la información de las compras  con el _total_pagar_ . 
+La tabla *resumen* cuyas  _foreign key_ son:  _codigo_factura_, _numero_tarjeta_. Otros atributos de la tabla son: _periodo_facturado_  se refiere 
+al tiempo desde que se inician las facturas de cada mes, hasta que finalizan es _fecha_vencimiento_. 
 
+
+[source,sql]
+----
+create table resumen(
+	    codigo_factura integer,
+		periodo_facturado integer,
+		fecha_vencimiento date,
+		total_pagar real,
+		numero_tarjeta integer
+);		
+
+----
+Añadimos las _FKs_ de tabla resumen de la siguiente manera:
+[source,sql]
+----
+alter table resumen add constraint detalle_fk0 foreign key (codigo_factura) references factura(codigo_factura);
+alter table resumen add constraint detalle_fk1 foreign key (numero_tarjeta) references tarjeta(numero_tarjeta);
+----
 
 
 //En esta sección se incluye el código fuente correctamente formateado—y comentado, si corresponde. Además, por cada fragmento de código relevante—i.e. función, método, procedimiento—se debe dar una descripción general, decir qué hace, y especificar los parámetros que toma la función/método/procedimiento, junto con los valores que devuelve ó modifica.
