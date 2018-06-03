@@ -36,9 +36,10 @@ funciona.
 *(Longitud: 3–5 párrafos)*
 
 == Implementación
-A continuación se exponen los schemas de las tablas diseñadas como así la explicación de los atributos incorporados en dichas tablas.
+A continuación se exponen los schemas de las tablas diseñadas como así la explicación de los atributos incorporados en dichas tablas. Además, se especificarán las correspondientes *Primary Key* (_PK_) y *Foreign Key* (_FK_) de cada tabla.
 
-En primer lugar, diseñamos una tabla *cliente*, los atributos que tienen lugar en este modelo son el _dni_ que sera el identificador único de dicha tabla, es decir, es la _primary key_. Luego, se tienen los datos necesarios del cliente, los cuales son el nombre, apellido y la dirección, además, se debe especificar el número de teléfono para así el Call Center pueda notificar al cliente de un posible fraude con su tarjeta.
+=== Tabla cliente
+En primer lugar, diseñamos una tabla *cliente*, los atributos que tienen lugar en este modelo son el _dni_ que será el identificador único de dicha tabla, es decir, es la _primary key_. Luego, se tienen los datos necesarios del cliente, los cuales son el _nombre_, _apellido_ y la _dirección_, además, se debe especificar el _número de teléfono_ para que el Call Center pueda notificar al cliente de un posible fraude con su tarjeta.
 
 [source, sql]
 ----
@@ -60,6 +61,21 @@ alter table cliente add constraint cliente_pk primary key (dni);
 
 
 
+=== Tabla tarjeta
+*Tarjeta* es una tabla cuya _primary key_ es el número identificatorio de dicha tarjeta que consta de 16 dígitos, otro de los atributos de este schema son el código de seguridad que consta de 3 a 4 dígitos dependiendo del banco, el límite de compra diario de la tarjeta, es decir, el tope máximo que el banco financia a través de la tarjeta de crédito (*ver y sigue*)
+
+[source,sql]
+----
+create table tarjeta(
+       numero_tarjeta integer,
+       dni_cliente integer,
+       codigo_seguridad integer,
+       limite_compra integer,
+       saldo real,
+       fecha_vencimiento date,
+       estado_tarjeta varchar(64)      
+);
+----
 
 
 En esta sección se incluye el código fuente correctamente formateado—y
