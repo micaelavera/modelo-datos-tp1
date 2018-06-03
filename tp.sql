@@ -59,11 +59,13 @@ create table resumen(
 		total_pagar real,
 		numero_tarjeta integer
 );		
-
+--PRIMARY KEY--
 alter table cliente add constraint cliente_pk primary key (dni);
-alter table tarjeta add constraint tarjeta_pk primary key (numero);
-alter table comercio add constraint compra_pk primary key (cod_comercio);
-alter table compra add constraint compra_fk1 foreign key (numero_tarjeta) references tarjeta(numero);
-alter table compra add constraint compra_fk2 foreign key (cod_comercio) references comercio(cod_comercio);
+alter table tarjeta add constraint tarjeta_pk primary key (numero_tarjeta);
+alter table comercio add constraint comercio_pk primary key (codigo_comercio);
+alter table compra add constraint compra_pk primary key(codigo_compra);
 
---agregar pks y fks que faltan y arreglar nombre que se "cambiaron"
+--FOREIGN KEY--
+alter table compra add constraint compra_fk0 foreign key (numero_tarjeta) references tarjeta(numero_tarjeta);
+
+--agregar pks y fks que faltan y arreglar nombres que se "cambiaron"
