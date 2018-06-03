@@ -5,33 +5,34 @@ Liz Moreno López <lilita.moreno@hotmail.com>; Micaela Vera <micavera2010@hotmai
 :source-highlighter: highlight.js
 :tabsize: 4
 
-Se debe ser breve, conciso, y simple. Se debe incluir sólo lo relevante
-que ayude a entender el trabajo práctico. Ok
+El presente documento consiste en describir el diseño de un modelo de datos relativo a operaciones de tarjetas de crédito identificando las _primary key_ y _foreign key_ de cada schema creado. 
+
+Este modelo debe cumplir los siguientes requisitos:
+
+- Autorización de la compra.
+- Generación de la factura. 
+- Alerta a clientes.
+
+//Se debe ser breve, conciso, y simple. Se debe incluir sólo lo relevante que ayude a entender el trabajo práctico. Ok
 
 == Introducción
 
-En este trabajo práctico debemos diseñar un modelo de datos relativo a operaciones de tarjetas de crédito. Las tarjetas no permiten 
-a los usuarios financiar una compra en cuotas, todo se realiza en un solo pago. Una persona puede tener más de una tarjeta pero no 
+Las tarjetas no permiten a los usuarios financiar una compra en cuotas, todo se realiza en un solo pago. Una persona puede tener más de una tarjeta pero no 
 deben existir extensiones de la misma. Las tarjetas podrán estar expiradas en su fecha de vencimiento.
 Las tarjetas tendrán consumos que deben surgir a partir de las compras que se realicen en los distintos comercios. 
-También, nos interesan los datos de los clientes, de las tarjetas de crédito con sus vencimientos y límites, entre otros. (ver)
+También, nos interesan los datos de los clientes, de las tarjetas de crédito con sus vencimientos y límites, entre otros. 
 
 
 *(Longitud: 3–5 párrafos)*
 
 == Descripción
 
-[source, sql]
-----
-create table alumno (legajo int, nombre text, apellido text);
-----
+En este apartado explicaremos las dificultades que tuvimos a lo largo de la realización del trabajo práctico.
 
-En esta sección pueden incluirse las dificultades que tuvieron, las
-soluciones encontradas, y las decisiones que fueron tomando a lo largo
-del trabajo práctico.
 
-También, se debe incluir una descripción general del programa—cómo
-funciona.
+//En esta sección pueden incluirse las dificultades que tuvieron, las soluciones encontradas, y las decisiones que fueron tomando a lo largo del trabajo práctico.
+
+//También, se debe incluir una descripción general del programa—cómo funciona.
 
 *(Longitud: 3–5 párrafos)*
 
@@ -62,7 +63,17 @@ alter table cliente add constraint cliente_pk primary key (dni);
 
 
 === Tabla tarjeta
-*Tarjeta* es una tabla cuya _primary key_ es el número identificatorio de dicha tarjeta que consta de 16 dígitos, otro de los atributos de este schema son el código de seguridad que consta de 3 a 4 dígitos dependiendo del banco, el límite de compra diario de la tarjeta, es decir, el tope máximo que el banco financia a través de la tarjeta de crédito (*ver y sigue*)
+*Tarjeta* es una tabla cuya _primary key_ es el número identificatorio de dicha tarjeta que consta de 16 dígitos, otro de los atributos de este schema es el propietario de la tarjeta, es decir,  el dni del cliente. Este sería la _FK_ de dicha tabla. 
+
+//Aclaramos que el dni del cliente es la FK de la tarjeta y no manera inversa, ya que en el enunciado se especifico que un cliente puede tener mas de una tarjeta.
+
+Además, se tiene el _código de seguridad_ que consta de 3 a 4 dígitos dependiendo del banco, el _límite de compra_ diario de la tarjeta, es decir, el tope máximo que el banco financia a través de la tarjeta de crédito.
+Colocamos un atributo denominado _fecha_vencimiento_ que se refiere a la fecha de expiracion de la tarjeta.
+
+Por ultimo, el número de la tarjeta debe corresponder a una tarjeta vigente, no debe estar vencida, ni suspendida. La suspensión ocurre cuando la tarjeta registra dos rechazos por exceso de límite en el mismo dìa.
+
+Para abarcar todos los estados de la tarjeta, incorporamos un atributo _estado_tarjeta_ en la tabla.
+
 
 [source,sql]
 ----
@@ -77,25 +88,30 @@ create table tarjeta(
 );
 ----
 
+El numero de la tarjeta es la PK de la tabla y se define de la siguiente manera:
 
-En esta sección se incluye el código fuente correctamente formateado—y
-comentado, si corresponde. Además, por cada fragmento de código
-relevante—i.e. función, método, procedimiento—se debe dar una
-descripción general, decir qué hace, y especificar los parámetros que
-toma la función/método/procedimiento, junto con los valores que devuelve
-ó modifica.
 
-_No debería incluirse el código de librerías/frameworks que se
-utilicen—a no ser que sea absolutamente necesario._
+
+Agregamos el dni del cliente como FK ya que 
+
+[source,sql]
+----
+alter table tarjeta add constraint tarjeta_fk0 foreign key (dni_cliente) references cliente(dni);
+----
+
+
+=== Tabla comercio
+
+//En esta sección se incluye el código fuente correctamente formateado—y comentado, si corresponde. Además, por cada fragmento de código relevante—i.e. función, método, procedimiento—se debe dar una descripción general, decir qué hace, y especificar los parámetros que toma la función/método/procedimiento, junto con los valores que devuelve ó modifica.
+
+//_No debería incluirse el código de librerías/frameworks que se utilicen—a no ser que sea absolutamente necesario._
 
 *(Longitud: lo que sea necesario)*
 
 == Conclusiones
 
-Aquí van algunas reflexiones acerca del proceso de desarrollo del
-trabajo realizado, y de los resultados obtenidos. También se debe
-incluir una conclusión final de producto terminado.
+//Aquí van algunas reflexiones acerca del proceso de desarrollo del trabajo realizado, y de los resultados obtenidos. También se debe incluir una conclusión final de producto terminado.
 
-Pueden incluirse lecciones aprendidas durante el desarrollo del trabajo.
+//Pueden incluirse lecciones aprendidas durante el desarrollo del trabajo.
 
 *(Longitud: 1–3 párrafos)*
