@@ -237,8 +237,10 @@ alter table resumen add constraint detalle_fk1 foreign key (numero_tarjeta) refe
 *(Longitud: lo que sea necesario)*
 
 == Conclusiones
-Para concluir, este trabajo práctico nos resulto satisfactorio. Como describimos anteriormente las dificutades que tuvimos pero los pudimos resolver.
-Finalmente este trabajo práctico nos resulto satisfactorio ya que pudimos resolver  las dificultades que tuvimos  con los aspectos referidos a la compra y su facturación. Tuvimos en cuenta el detalle de la factura como así también el resumen de la tarjeta. Para ello agregamos la *tabla detalle* y también *tabla resumen*  .
+Para concluir, este trabajo práctico se ha realizado con el objetivo de diseñar y explicar un modelo de datos relativo a tarjetas de creditos. Para llegar a ese objetivo se tuvo que realizar los distintos schemas para cubrir con todos los requerimientos solicitados.
+
+La ejecucion de este trabajo practico nos resulto satisfactorio, pero como describimos anteriormente se tuvieron algunas dificultades que supimos resolverlas eficazmente. Estas dificultades diferian en cuanto al concepto de compra y su facturacion, para ello, separamos algunos atributos que no deberian haber estado, y ademas, se realizo la contruccion de las tablas detalle y resumen.
+
 
 
 //Aquí van algunas reflexiones acerca del proceso de desarrollo del trabajo realizado, y de los resultados obtenidos. También se debe incluir una conclusión final de producto terminado.
