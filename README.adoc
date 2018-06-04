@@ -65,10 +65,10 @@ alter table cliente add constraint cliente_pk primary key (dni);
 
 
 === Tabla tarjeta
-*Tarjeta* es una tabla cuya _primary key_ es el número identificatorio de dicha tarjeta que consta de 16 dígitos, otro de los atributos de este schema es el propietario de la tarjeta, es decir,  el dni del cliente. Éste sería la _FK_ de dicha tabla. 
+*Tarjeta* es una tabla cuya _primary key_ es el número identificatorio de dicha tarjeta que consta de 16 dígitos, otro de los atributos de este schema es el propietario de la tarjeta, es decir,  el _dni del cliente_. Éste sería la _FK_ de dicha tabla. 
 
 Además, se tiene el _código de seguridad_ que consta de 3 a 4 dígitos dependiendo del banco, el _límite de compra_ diario de la tarjeta, es decir, el tope máximo que el banco financia a través de la tarjeta de crédito y el _saldo_ que posee dicha tarjeta.
-Colocamos un atributo denominado _fecha_vencimiento_ que se refiere a la fecha de expiracion de la tarjeta.
+Colocamos un atributo denominado _fecha_vencimiento_ que se refiere a la fecha de expiración de la tarjeta.
 
 Por último, el número de la tarjeta debe corresponder a una tarjeta vigente, no debe estar vencida, ni suspendida. La suspensión ocurre cuando la tarjeta registra dos rechazos por exceso de límite en el mismo día.
 
@@ -101,7 +101,6 @@ Agregamos el _dni del cliente_ como _FK_ de la siguiente manera:
 alter table tarjeta add constraint tarjeta_fk0 foreign key (dni_cliente) references cliente (dni);
 ----
 
-
 === Tabla comercio
 Agregamos la tabla *comercio* que consta de distintos atributos, un número identificatorio de comercio que denominamos _codigo_comercio_, el _nombre_, _dirección_ y el _código postal_ de dicho comercio.
 Colocamos el código postal del comercio en caso de que se deba emitir un alerta en el momento que la tarjeta registre dos compras con el mismo o diferente código postal en el transcurso de un tiempo dado.
@@ -124,7 +123,7 @@ alter table comercio add constraint comercio_pk primary key (codigo_comercio);
 ----
 
 === Tabla compra
-La tabla *compra* cuya _primary key_ es el número identificatorio de dicha compra, otro de los atributos de este schema es el código del comercio donde se realizó la compra, _numero_tarjeta_ del cliente ya que el pago de la compra se realiza con la tarjeta de crédito. Además, tenemos el atributo _fecha_ y _horario_ que se refiere a las compras en un lapso de tiempo como ya mencionamos en la introducción y su respectivo _monto_.
+La tabla *compra* cuya _primary key_ es el número identificatorio de dicha compra, otro de los atributos de este schema es el _código del comercio_ donde se realizó la compra, _numero_tarjeta_ del cliente ya que el pago de la compra se realiza con la tarjeta de crédito. Además, tenemos el atributo _fecha_ y _horario_ que se refiere a las compras en un lapso de tiempo como ya mencionamos en la introducción y su respectivo _monto_.
 
 [source,sql]
 ----
@@ -151,15 +150,14 @@ Esto lo llevamos a cabo con las siguientes sentencias:
 
 [source,sql]
 ----
-alter table compra add contraint compra_fk0 foreign key(codigo_comercio) references comercio (codigo_comercio);
+alter table compra add contraint compra_fk0 foreign key (codigo_comercio) references comercio (codigo_comercio);
 
-alter table compra add contraint compra_fk1 foreign key(numero_tarjeta) references tarjeta (numero_tarjeta);
+alter table compra add contraint compra_fk1 foreign key (numero_tarjeta) references tarjeta (numero_tarjeta);
 ----
-
 
 === Tabla factura
 Una *factura* es un documento de índole comercial que indica la compra-venta de un bien o servicio, tiene validez legal y fiscal, entre otras cosas, debe incluir toda la información de la operación.
-Entre la información que incluye una factura son: el _codigo_factura_ que es la _primary key_ de la tabla, el codigo_compra que se refiere dicha factura , numero_tarjeta del cliente, además se tiene los atributos _codigo_comercio_ y el _monto_.
+Entre la información que incluye una factura son: el _codigo_factura_ que es la _primary key_ de la tabla, el _codigo_compra_ que se refiere dicha factura , _numero_tarjeta_ del cliente, además se tiene los atributos _codigo_comercio_ y el _monto_.
 Como toda *factura*, ésta incluye el detalle de cada artículo, para esto, creamos el atributo _detalle_articulo_ que tambien es una _FK_ de la tabla.
 [source,sql]
 ----
