@@ -135,7 +135,7 @@ alter table comercio add constraint comercio_pk primary key (codigo_comercio);
 ----
 
 === Tabla compra
-La tabla compra  cuya _primary key_ es el número identificario de dicha compra que consta de * 6 dígitos*, otros de los atributos de este schema es el _numero_tarjeta_  del cliente ya que el pago de la compra se
+La tabla compra  cuya _primary key_ es el número identificario de dicha compra que consta de 3 a 4 dígitos, otros de los atributos de este schema es el _numero_tarjeta_  del cliente ya que el pago de la compra se
 realiza con la tarjeta de crédito. Además tenemos el atrubito _horario_ que se refiere a las compras en un lapso de tiempo como ya mencionamos en la introducción.
 
 [source,sql]
@@ -203,7 +203,7 @@ alter table detalle add constrain detalle_pk primery key (codigo_articulo);
 ----
 
 === Tabla resumen
-El *resumen* de la *factura* *???????????????* es cuyo documento donde se encuentran toda la información de las compras  con el _total_pagar_ . 
+El *resumen* de la *tarjeta* es cuyo documento donde se encuentran toda la información de las compras  con el _total_pagar_ . 
 La tabla *resumen* cuyas  _foreign key_ son:  _codigo_factura_, _numero_tarjeta_. Otros atributos de la tabla son: _periodo_facturado_  se refiere 
 al tiempo desde que se inician las facturas de cada mes, hasta que finalizan es _fecha_vencimiento_. 
 
