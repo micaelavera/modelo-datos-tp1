@@ -1,7 +1,8 @@
 = Bases de Datos I: Trabajo Práctico 1
 
 Liz Moreno López <lilita.moreno@hotmail.com>; Micaela Vera <micavera2010@hotmail.com>; Verónica Juarez <veronicajuarez01@hotmail.com>
-{docdate} Docentes Hernán Rondelli y Mariano Trigila (COM-01)
+
+{docdate}. Docentes Hernán Rondelli y Mariano Trigila (COM-01)
 :numbered:
 :source-highlighter: highlight.js
 :tabsize: 4
