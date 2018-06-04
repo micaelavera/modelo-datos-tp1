@@ -169,7 +169,7 @@ alter table compra add contraint compra_fk1 foreign key(numero_tarjeta) referenc
 
 === Tabla factura
 Una *factura* es un documento de índole comercial que indica la compra-venta de un bien o servicio, tiene validez legal y fiscal, entre otras cosas, debe incluir toda la información de la operación.
-Entre la información que incluye una factura son: el _codigo_factura_ que es la _primary key_ de la tabla, el codigo_compra que se refiere dicha factura , numero_tarjeta del cliente, además el _codigo_comercio_ y el _monto_.
+Entre la información que incluye una factura son: el _codigo_factura_ que es la _primary key_ de la tabla, el codigo_compra que se refiere dicha factura , numero_tarjeta del cliente, además se tiene los atributos _codigo_comercio_ y el _monto_.
 Como toda *factura*, ésta incluye el detalle de cada artículo, para esto, creamos el atributo _detalle_articulo_ que tambien es una _FK_ de la tabla.
 [source,sql]
 ----
@@ -197,7 +197,9 @@ alter table factura add constraint factura_fk0 foreign key(codigo_compra) refere
 
 alter table factura add constraint factura_fk1 foreign key (numero_tarjeta) references tarjeta(numero_tarjeta);
 
-alter table factura add constraint factura_fk2 foreign key (detalle_articulo) references detalle(codigo_articulo);
+alter table factura add constraint factura_fk2 foreign key (codigo_comercio) references comercio(codigo_comercio);
+
+alter table factura add constraint factura_fk3 foreign key (detalle_articulo) references detalle(codigo_articulo);
 ----
 
 
@@ -214,6 +216,7 @@ create table detalle(
 );
 ----
 Añadimos la _PK_ del detalle de la siguiente manera:
+
 [source,sql]
 ----
 alter table detalle add constraint detalle_pk primary key (codigo_articulo);
@@ -227,19 +230,27 @@ La tabla *resumen* cuyas  _foreign key_ son:  _codigo_factura_ y _numero_tarjeta
 [source,sql]
 ----
 create table resumen(
+        codigo_resumen,
 	    codigo_factura integer,
 		periodo_facturado integer,
 		fecha_vencimiento date,
 		total_pagar real,
 		numero_tarjeta integer
 );		
-
 ----
-Añadimos las _FK's_ de la tabla resumen de la siguiente manera:
+
+El numero que identifica el resumen es codigo_factura y se declara de la siguiente forma:
 [source,sql]
 ----
-alter table resumen add constraint detalle_fk0 foreign key (codigo_factura) references factura(codigo_factura);
-alter table resumen add constraint detalle_fk1 foreign key (numero_tarjeta) references tarjeta(numero_tarjeta);
+alter table resumen add constraint resumen_pk primary key (codigo_resumen);
+
+Añadimos las _FK's_ de la tabla _resumen_ de la siguiente manera:
+
+[source,sql]
+----
+alter table resumen add constraint resumen_fk0 foreign key (codigo_factura) references factura(codigo_factura);
+
+alter table resumen add constraint resumen_fk1 foreign key (numero_tarjeta) references tarjeta(numero_tarjeta);
 ----
 
 
