@@ -105,7 +105,7 @@ El número de la tarjeta es la _PK_ de la tabla y se define de la siguiente mane
 alter table tarjeta add constraint tarjeta_pk primary key (codigo_tarjeta);
 ----
 
-Agregamos el dni del cliente como _FK_ ya que -------------
+Agregamos el dni del cliente como _FK_ de la siguiente manera:
 
 [source,sql]
 ----
