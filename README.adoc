@@ -25,11 +25,12 @@ A partir de los datos de una compra, se puede aceptar o rechazar dicha compra. S
 Para cada nuevo consumo se deben guardar los datos de una factura con el nombre y apellido, dirección, número de tarjeta, período de la factura, fecha de vencimiento, todas las compras del período, y total a pagar.
 
 Por último, se deben generar alertas por posibles fraudes. Existe un Call Center que ante cada alerta generada automáticamente realiza un llamado telefónico al cliente, indicándole la alerta detectada y verifica si se trató de un fraude ó no.
-Se debe tener en cuenta para las alertas:
 
-- Si una tarjeta registra dos compras en un lapso menor de un minuto en comercios distintos ubicados en el mismo código postal.
-- Si una tarjeta registra dos compras en un lapso menor de 5 minutos en comercios con diferentes códigos postales.
-- Si una tarjeta registra dos rechazos por exceso de límite en el mismo día, la tarjeta tiene que ser suspendida preventivamente.
+NOTE: Se debe tener en cuenta para las alertas:
+
+    - Si una tarjeta registra dos compras en un lapso menor de un minuto en comercios distintos ubicados en el mismo código postal.
+    - Si una tarjeta registra dos compras en un lapso menor de 5 minutos en comercios con diferentes códigos postales.
+    - Si una tarjeta registra dos rechazos por exceso de límite en el mismo día, la tarjeta tiene que ser suspendida preventivamente.
 
 
 == Descripción
@@ -190,13 +191,13 @@ También añadimos las _FK's_ de la tabla _factura_ de la siguiente manera:
 
 [source,sql]
 ----
-alter table factura add constraint factura_fk0 foreign key(codigo_compra) references compra(codigo_compra);
+alter table factura add constraint factura_fk0 foreign key(codigo_compra) references compra (codigo_compra);
 
-alter table factura add constraint factura_fk1 foreign key (numero_tarjeta) references tarjeta(numero_tarjeta);
+alter table factura add constraint factura_fk1 foreign key (numero_tarjeta) references tarjeta (numero_tarjeta);
 
-alter table factura add constraint factura_fk2 foreign key (codigo_comercio) references comercio(codigo_comercio);
+alter table factura add constraint factura_fk2 foreign key (codigo_comercio) references comercio (codigo_comercio);
 
-alter table factura add constraint factura_fk3 foreign key (detalle_articulo) references detalle(codigo_articulo);
+alter table factura add constraint factura_fk3 foreign key (detalle_articulo) references detalle (codigo_articulo);
 ----
 
 
