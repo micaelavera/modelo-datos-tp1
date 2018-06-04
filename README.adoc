@@ -228,7 +228,7 @@ create table resumen(
 );		
 ----
 
-El número que identifica el resumen es _codigo_factura_ y se declara de la siguiente forma:
+El número que identifica el resumen es _codigo_resumen_ y se declara de la siguiente forma:
 
 [source,sql]
 ----
