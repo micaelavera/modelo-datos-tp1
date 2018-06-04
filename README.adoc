@@ -1,12 +1,10 @@
 = Bases de Datos I: Trabajo Práctico 1
 
 Liz Moreno López <lilita.moreno@hotmail.com>; Micaela Vera <micavera2010@hotmail.com>; Verónica Juarez <veronicajuarez01@hotmail.com>
-
 {docdate}. Docentes Hernán Rondelli y Mariano Trigila (COM-01)
 :numbered:
 :source-highlighter: highlight.js
 :tabsize: 4
-
 
 El presente documento consiste en describir el diseño de un modelo de datos relativo a operaciones de tarjetas de crédito identificando las _primary key_ y _foreign key_ de cada schema creado. 
 
