@@ -35,8 +35,9 @@ Se debe tener en cuenta para las alertas:
 == Descripción
 
 En este apartado explicaremos las dificultades que tuvimos a lo largo de la realización del trabajo práctico.
-Al comiendo la realización de las tablas lo realizamos de forma sencilla, luego tuvimos problemas con  la factura y la tarjeta(que en un periodo llega un resumen con los movimientos realizados con la misma) ya que las mismas tienen mucha información. Entonces decidimos crear dos nuevas tablas: *tabla detalle*, *tabla resumen*. La tabla detalle comprende la informacion detallada generalmente en el centro de la factura. La tabla resumen como lo describimos
-anteriormente, esta viene con información de los movimientos que se realizó durante un período, que más adelante explicaremos espefíficamente.
+Al comienzo, la realización de las tablas lo ejecutamos de forma sencilla, sin embargo, tuvimos dificultades con algunos conceptos referidos a la compra y su facturación. Habiamos incluido el ticket de una compra pero no tuvimos en cuenta el detalle de dicha compra, y además, no habiamos realizado la tabla del resumen de la tarjeta, cuya confección era un requisito del enunciado.
+
+Por esto, decidimos crear dos nuevas tablas: *tabla detalle* y *tabla resumen*. La tabla _detalle_ comprende la información detallada generalmente en el centro de la factura. La tabla _resumen_ como lo describimos anteriormente, ésta viene con la información de los movimientos que se realizó durante un período, que más adelante explicaremos de manera específica.
 
 
 //En esta sección pueden incluirse las dificultades que tuvieron, las soluciones encontradas, y las decisiones que fueron tomando a lo largo del trabajo práctico.
@@ -229,7 +230,7 @@ alter table resumen add constraint detalle_fk1 foreign key (numero_tarjeta) refe
 *(Longitud: lo que sea necesario)*
 
 == Conclusiones
-para concluir, este trabajo práctico nos resulto satisfactorio. Como describimos anteriormente las difilcutades que tuvimos pero los pufimos resolver.
+para concluir, este trabajo práctico nos resulto satisfactorio. Como describimos anteriormente las dificutades que tuvimos pero los pudimos resolver.
 
 
 //Aquí van algunas reflexiones acerca del proceso de desarrollo del trabajo realizado, y de los resultados obtenidos. También se debe incluir una conclusión final de producto terminado.
