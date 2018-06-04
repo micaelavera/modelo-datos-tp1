@@ -35,7 +35,7 @@ Se debe tener en cuenta para las alertas:
 == Descripción
 
 En este apartado explicaremos las dificultades que tuvimos a lo largo de la realización del trabajo práctico.
-Al comienzo, la realización de las tablas lo ejecutamos de forma sencilla, sin embargo, tuvimos dificultades con algunos conceptos referidos a la compra y su facturación. Habiamos incluido el ticket de una compra pero no tuvimos en cuenta el detalle de dicha compra, y además, no habiamos realizado la tabla del resumen de la tarjeta, cuya confección era un requisito del enunciado.
+Al comienzo, la realización de las tablas lo ejecutamos de forma sencilla, sin embargo, tuvimos dificultades con algunos conceptos referidos a la compra y su facturación. Habiamos incluido la factura de una compra pero no tuvimos en cuenta el detalle de dicha factura, y además, no habiamos realizado la tabla del resumen de la tarjeta, cuya confección era un requisito del enunciado.
 
 Por esto, decidimos crear dos nuevas tablas: *tabla detalle* y *tabla resumen*. La tabla _detalle_ comprende la información detallada generalmente en el centro de la factura. La tabla _resumen_ como lo describimos anteriormente, ésta viene con la información de los movimientos que se realizó durante un período, que más adelante explicaremos de manera específica.
 
@@ -134,15 +134,17 @@ alter table comercio add constraint comercio_pk primary key (codigo_comercio);
 ----
 
 === Tabla compra
-La tabla *compra* cuya _primary key_ es el número identificatorio de dicha compra, otro de los atributos de este schema es el _numero_tarjeta_ del cliente ya que el pago de la compra se realiza con la tarjeta de crédito. Además, tenemos el atributo _horario_ que se refiere a las compras en un lapso de tiempo como ya mencionamos en la introducción.
+La tabla *compra* cuya _primary key_ es el número identificatorio de dicha compra, otro de los atributos de este schema es el codigo de comercio donde se realizo la compra, _numero_tarjeta_ del cliente ya que el pago de la compra se realiza con la tarjeta de crédito. Además, tenemos el atributo _fecha_ y _horario_ que se refiere a las compras en un lapso de tiempo como ya mencionamos en la introducción y su respectivo monto.
 
 [source,sql]
 ----
 create table compra(
 	    codigo_compra integer,
+        codigo_comercio integer,
 		numero_tarjeta integer,
 		fecha date,
-		horario time
+		horario time,
+        monto real
 );
 ----
 El código de la compra es la _PK_ de la tabla y se define de la siguiente manera:
@@ -150,19 +152,21 @@ El código de la compra es la _PK_ de la tabla y se define de la siguiente maner
 [source,sql]
 ----
 alter table compra add constraint compra_pk primary key (codigo_compra);
+
 ----
 
 === Tabla factura
 Una *factura* es un documento de índole comercial que indica la compra-venta de un bien o servicio, tiene validez legal y fiscal, entre otras cosas, debe incluir toda la información de la operación.
-Entre la informacion que incluye una factura son: el _codigo_factura_ que es la _primary key_ de la tabla, el siguiente atributo es el _dni_cliente_, además el _codigo_comercio_  que es la _foreign key_ de la tabla. 
+Entre la informacion que incluye una factura son: el _codigo_factura_ que es la _primary key_ de la tabla, el codigo compra que refiere dicha factura , numero_tarjeta del cliente, además el _codigo_comercio_ y el monto.
 Como toda *factura*, esta incluye _detalle_articulo_ que tambien es una _FK_ de la tabla.
 [source,sql]
 ----
 create table factura(
 	    codigo_factura integer,
-		dni_cliente integer,
+        codigo_compra integer,
+		numero_tarjeta integer,
 		codigo_comercio integer,
-		total_pagar real,
+		monto real,
 		detalle_articulo integer
 );
 ----
@@ -176,8 +180,11 @@ alter table factura add constraint factura_pk primary key (codigo_factura);
 También añadimos las _FK's_ de la tabla factura de la siguiente manera:
 [source,sql]
 ----
-alter table factura add constraint factura_fk0 foreign key (dni_cliente) references cliente (dni);
-alter table factura add constraint factura_fk1 foreign key (detalle_articulo) references detalle(codigo_articulo);
+alter table factura add constraint factura_fk0 foreign key(codigo_compra) references compra(codigo_compra);
+
+alter table factura add constraint factura_fk1 foreign key (numero_tarjeta) references tarjeta(numero_tarjeta);
+
+alter table factura add constraint factura_fk2 foreign key (detalle_articulo) references detalle(codigo_articulo);
 ----
 
 
@@ -230,7 +237,7 @@ alter table resumen add constraint detalle_fk1 foreign key (numero_tarjeta) refe
 *(Longitud: lo que sea necesario)*
 
 == Conclusiones
-para concluir, este trabajo práctico nos resulto satisfactorio. Como describimos anteriormente las dificutades que tuvimos pero los pudimos resolver.
+Para concluir, este trabajo práctico nos resulto satisfactorio. Como describimos anteriormente las dificutades que tuvimos pero los pudimos resolver.
 
 
 //Aquí van algunas reflexiones acerca del proceso de desarrollo del trabajo realizado, y de los resultados obtenidos. También se debe incluir una conclusión final de producto terminado.
