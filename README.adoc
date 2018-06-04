@@ -230,7 +230,7 @@ alter table resumen add constraint detalle_fk1 foreign key (numero_tarjeta) refe
 *(Longitud: lo que sea necesario)*
 
 == Conclusiones
-para concluir, este trabajo práctico nos resulto satisfactorio. Como describimos anteriormente las dificutades que tuvimos pero los pudimos resolver.
+Finalmente este trabajo práctico nos resulto satisfactorio ya que pudimos resolver  las dificultades que tuvimos  con los aspectos referidos a la compra y su facturación. Tuvimos en cuenta el detalle de la factura como así también el resumen de la tarjeta. Para ello agregamos la *tabla detalle* y también *tabla resumen*  .
 
 
 //Aquí van algunas reflexiones acerca del proceso de desarrollo del trabajo realizado, y de los resultados obtenidos. También se debe incluir una conclusión final de producto terminado.
