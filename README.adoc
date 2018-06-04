@@ -22,8 +22,7 @@ También, nos interesan los datos de los clientes, de las tarjetas de crédito c
 
 A partir de los datos de una compra, se puede aceptar o rechazar dicha compra. Se debe considerar distintos factores para la autorizacion de la compra; debe existir el número de la tarjeta y corresponder a alguna tarjeta vigente, el código de seguridad tiene que ser el correcto, el monto total de las compras pendientes de pago más la compra a realizar no debe superar el límite de compra de la tarjeta, por último, la tarjeta no debe estar vencida ni suspendida.
 
-Para cada nuevo consumo se deben guardar los datos de una factura con el nombre y apellido, dirección, número de tarjeta, período de la factura, fecha de vencimiento, todas
-las compras del período, y total a pagar.
+Para cada nuevo consumo se deben guardar los datos de una factura con el nombre y apellido, dirección, número de tarjeta, período de la factura, fecha de vencimiento, todas las compras del período, y total a pagar.
 
 Por último, se deben generar alertas por posibles fraudes. Existe un Call Center que ante cada alerta generada automáticamente realiza un llamado telefónico al cliente, indicándole la alerta detectada y verifica si se trató de un fraude ó no.
 Se debe tener en cuenta para las alertas:
@@ -76,7 +75,7 @@ alter table cliente add constraint cliente_pk primary key (dni);
 
 //Aclaramos que el dni del cliente es la FK de la tarjeta y no de manera inversa, ya que en el enunciado se especifico que un cliente puede tener mas de una tarjeta.
 
-Además, se tiene el _código de seguridad_ que consta de 3 a 4 dígitos dependiendo del banco, el _límite de compra_ diario de la tarjeta, es decir, el tope máximo que el banco financia a través de la tarjeta de crédito.
+Además, se tiene el _código de seguridad_ que consta de 3 a 4 dígitos dependiendo del banco, el _límite de compra_ diario de la tarjeta, es decir, el tope máximo que el banco financia a través de la tarjeta de crédito y el _saldo_ que posee dicha tarjeta.
 Colocamos un atributo denominado _fecha_vencimiento_ que se refiere a la fecha de expiracion de la tarjeta.
 
 Por ultimo, el número de la tarjeta debe corresponder a una tarjeta vigente, no debe estar vencida, ni suspendida. La suspensión ocurre cuando la tarjeta registra dos rechazos por exceso de límite en el mismo dìa.
@@ -114,8 +113,8 @@ alter table tarjeta add constraint tarjeta_fk0 foreign key (dni_cliente) referen
 
 
 === Tabla comercio
-Agregamos la tabla *comercio* que consta de distintos atributos, un numero identificatorio de comercio que denominamos _codigo_comercio_, el nombre, dirección y el codigo postal de dicho comercio.
-Colocamos el codigo postal del comercio en caso de emitir una alerta en el momento que la tarjeta registre compras en el mismo o diferente codigo postal de los comercios en el transcurso de un tiempo dado.
+Agregamos la tabla *comercio* que consta de distintos atributos, un número identificatorio de comercio que denominamos _codigo_comercio_, el nombre, dirección y el código postal de dicho comercio.
+Colocamos el código postal del comercio en caso de emitir una alerta en el momento que la tarjeta registre compras en el mismo o diferente còdigo postal de los comercios en el transcurso de un tiempo dado.
 
 [source,sql]
 ----
@@ -135,8 +134,7 @@ alter table comercio add constraint comercio_pk primary key (codigo_comercio);
 ----
 
 === Tabla compra
-La tabla compra  cuya _primary key_ es el número identificario de dicha compra que consta de 3 a 4 dígitos, otros de los atributos de este schema es el _numero_tarjeta_  del cliente ya que el pago de la compra se
-realiza con la tarjeta de crédito. Además tenemos el atrubito _horario_ que se refiere a las compras en un lapso de tiempo como ya mencionamos en la introducción.
+La tabla *compra* cuya _primary key_ es el número identificatorio de dicha compra que consta de 3 a 4 dígitos, otros de los atributos de este schema es el _numero_tarjeta_ del cliente ya que el pago de la compra se realiza con la tarjeta de crédito. Además tenemos el atributo _horario_ que se refiere a las compras en un lapso de tiempo como ya mencionamos en la introducción.
 
 [source,sql]
 ----
@@ -157,8 +155,8 @@ alter table compra add constraint compra_pk primary key (codigo_compra);
 
 === Tabla factura
 Una *factura* es un documento de índole comercial que indica la compra-venta de un bien o servicio, tiene validez legal y fiscal, entre otras cosas, debe incluir toda la información de la operación.
-Entre la informacion que incluye una factura son el _codido_factura_ que es la _primary key_ de la tabla, el siguiente atributo es el _dni_cliente_, además el _codigo_comercio_  que es la _foreign key_ de la tabla. 
-Como toda *factura*, esta incluye _detalle_artictulo_ que tambien es la _FK_ de la tabla.
+Entre la informacion que incluye una factura son: el _codigo_factura_ que es la _primary key_ de la tabla, el siguiente atributo es el _dni_cliente_, además el _codigo_comercio_  que es la _foreign key_ de la tabla. 
+Como toda *factura*, esta incluye _detalle_artictulo_ que tambien es una _FK_ de la tabla.
 [source,sql]
 ----
 create table factura(
@@ -176,7 +174,7 @@ Añadimos la PK de la tabla factura de la siguiente manera:
 ----
 alter table factura add constraint factura_pk primary key (codigo_factura);
 ----
-También  añadimos las FK de la tabla factura de la siguiente manera:
+También  añadimos las FK's de la tabla factura de la siguiente manera:
 [source,sql]
 ----
 alter table factura add constraint factura_fk0 foreign key (dni_cliente) references cliente (dni);
@@ -186,8 +184,8 @@ alter table factura add constraint factura_fk1 foreign key (detalle_articulo) re
 
 
 === Tabla detalle
-El *detalle* de la factura generalmente se encuentra en el centro de la misma. La _primary key_ de esta tabla es _codigo_articulo_ que el número identificatorio de articulo comprado.
-además tiene los siguientes atributos: _cantidad_ se refiere a la cantidad de artículos, el _precio_unitario_ del artículo.
+El *detalle* de la factura generalmente se encuentra en el centro de la misma. La _primary key_ de esta tabla es _codigo_articulo_ que es el número identificatorio del articulo comprado.
+Además, posee los siguientes atributos: _cantidad_ se refiere a la cantidad de artículos y el _precio_unitario_ del artículo.
 [source,sql]
 ----
 create table detalle(
@@ -199,13 +197,12 @@ create table detalle(
 Añadimos la _PK_ del detalle de la siguiente manera:
 [source,sql]
 ----
-alter table detalle add constrain detalle_pk primery key (codigo_articulo);
+alter table detalle add constraint detalle_pk primery key (codigo_articulo);
 ----
 
 === Tabla resumen
-El *resumen* de la *tarjeta* es cuyo documento donde se encuentran toda la información de las compras  con el _total_pagar_ . 
-La tabla *resumen* cuyas  _foreign key_ son:  _codigo_factura_, _numero_tarjeta_. Otros atributos de la tabla son: _periodo_facturado_  se refiere 
-al tiempo desde que se inician las facturas de cada mes, hasta que finalizan es _fecha_vencimiento_. 
+El *resumen* de la *tarjeta* es un documento donde se encuentran toda la información de las compras con el _total_pagar_ . 
+La tabla *resumen* cuyas  _foreign key_ son:  _codigo_factura_, _numero_tarjeta_. Otros atributos de la tabla son: _periodo_facturado_  se refiere al tiempo desde que se inician las facturas de cada mes, hasta que finalizan es _fecha_vencimiento_. 
 
 
 [source,sql]
@@ -219,7 +216,7 @@ create table resumen(
 );		
 
 ----
-Añadimos las _FKs_ de tabla resumen de la siguiente manera:
+Añadimos las _FK's_ de tabla resumen de la siguiente manera:
 [source,sql]
 ----
 alter table resumen add constraint detalle_fk0 foreign key (codigo_factura) references factura(codigo_factura);
