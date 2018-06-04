@@ -25,7 +25,6 @@ A partir de los datos de una compra, se puede aceptar o rechazar dicha compra. S
 Para cada nuevo consumo se deben guardar los datos de una factura con el nombre y apellido, dirección, número de tarjeta, período de la factura, fecha de vencimiento, todas las compras del período, y total a pagar.
 
 Por último, se deben generar alertas por posibles fraudes. Existe un Call Center que ante cada alerta generada automáticamente realiza un llamado telefónico al cliente, indicándole la alerta detectada y verifica si se trató de un fraude ó no.
-
 Se debe tener en cuenta para las alertas:
 
 - Si una tarjeta registra dos compras en un lapso menor de un minuto en comercios distintos ubicados en el mismo código postal.
@@ -39,13 +38,6 @@ En este apartado explicaremos las dificultades que tuvimos a lo largo de la real
 Al comienzo, la realización de las tablas lo ejecutamos de forma sencilla, sin embargo, tuvimos dificultades con algunos conceptos referidos a la compra y su facturación. Habíamos incluido la factura de una compra pero no tuvimos en cuenta el detalle de dicha factura, y además, no habíamos realizado la tabla del resumen de la tarjeta, cuya confección era un requisito del enunciado.
 
 Por esto, decidimos crear dos nuevas tablas: *tabla detalle* y *tabla resumen*. La tabla _detalle_ comprende la información detallada generalmente en el centro de la factura. La tabla _resumen_ como lo describimos anteriormente, ésta viene con la información de los movimientos que se realizó durante un período, que más adelante explicaremos de manera específica.
-
-
-//En esta sección pueden incluirse las dificultades que tuvieron, las soluciones encontradas, y las decisiones que fueron tomando a lo largo del trabajo práctico.
-
-//También, se debe incluir una descripción general del programa—cómo funciona.
-
-*(Longitud: 3–5 párrafos)*
 
 == Implementación
 A continuación se exponen los schemas de las tablas diseñadas como así la explicación de los atributos incorporados en dichas tablas. Además, se especificarán las correspondientes *Primary Key* (_PK_) y *Foreign Key* (_FK_) de cada tabla.
@@ -191,13 +183,13 @@ También añadimos las _FK's_ de la tabla _factura_ de la siguiente manera:
 
 [source,sql]
 ----
-alter table factura add constraint factura_fk0 foreign key(codigo_compra) references compra (codigo_compra);
+alter table factura add constraint factura_fk0 foreign key(codigo_compra) references compra(codigo_compra);
 
-alter table factura add constraint factura_fk1 foreign key (numero_tarjeta) references tarjeta (numero_tarjeta);
+alter table factura add constraint factura_fk1 foreign key (numero_tarjeta) references tarjeta(numero_tarjeta);
 
-alter table factura add constraint factura_fk2 foreign key (codigo_comercio) references comercio (codigo_comercio);
+alter table factura add constraint factura_fk2 foreign key (codigo_comercio) references comercio(codigo_comercio);
 
-alter table factura add constraint factura_fk3 foreign key (detalle_articulo) references detalle (codigo_articulo);
+alter table factura add constraint factura_fk3 foreign key (detalle_articulo) references detalle(codigo_articulo);
 ----
 
 
