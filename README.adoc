@@ -2,10 +2,12 @@
 Liz Moreno López <lilita.moreno@hotmail.com>; Micaela Vera <micavera2010@hotmail.com>; Verónica Juarez <veronicajuarez01@hotmail.com>
 {docdate}. Docentes Hernán Rondelli y Mariano Trigila (COM-01)
 :numbered:
-:source-highlighter: highlight.js
+:source-highlighter: pygments
 :tabsize: 4
 
-El presente documento consiste en describir el diseño de un modelo de datos relativo a operaciones de tarjetas de crédito identificando las _primary key_ y _foreign key_ de cada schema creado. 
+El presente documento consiste en describir el diseño de un modelo de
+datos relativo a operaciones de tarjetas de crédito identificando las
+_primary key_ y _foreign key_ de cada schema creado. 
 
 Este modelo debe cumplir los siguientes requisitos:
 
@@ -13,68 +15,123 @@ Este modelo debe cumplir los siguientes requisitos:
 - Generación de la factura. 
 - Alerta a clientes.
 
-
 == Introducción
 
-Las tarjetas no permiten a los usuarios financiar una compra en cuotas, todo se realiza en un solo pago. Una persona puede tener más de una tarjeta pero no deben existir extensiones de la misma. Las tarjetas podrán estar expiradas en su fecha de vencimiento.
-Las tarjetas tendrán consumos que deben surgir a partir de las compras que se realicen en los distintos comercios. 
-También, nos interesan los datos de los clientes, de las tarjetas de crédito con sus vencimientos y límites, entre otros. 
+Las tarjetas no permiten a los usuarios financiar una compra en cuotas,
+todo se realiza en un solo pago. Una persona puede tener más de una
+tarjeta pero no deben existir extensiones de la misma. Las tarjetas
+podrán estar expiradas en su fecha de vencimiento.
 
-A partir de los datos de una compra, se puede aceptar o rechazar dicha compra. Se debe considerar distintos factores para la autorización de la compra; debe existir el número de la tarjeta y corresponder a alguna tarjeta vigente, el código de seguridad tiene que ser el correcto, el monto total de las compras pendientes de pago más la compra a realizar no debe superar el límite de compra de la tarjeta, por último, la tarjeta no debe estar vencida ni suspendida.
+Las tarjetas tendrán consumos que deben surgir a partir de las compras
+que se realicen en los distintos comercios.  También, nos interesan los
+datos de los clientes, de las tarjetas de crédito con sus vencimientos y
+límites, entre otros. 
 
-Para cada nuevo consumo se deben guardar los datos de una factura con el nombre y apellido, dirección, número de tarjeta, período de la factura, fecha de vencimiento, todas las compras del período, y total a pagar.
+A partir de los datos de una compra, se puede aceptar o rechazar dicha
+compra. Se debe considerar distintos factores para la autorización de la
+compra; debe existir el número de la tarjeta y corresponder a alguna
+tarjeta vigente, el código de seguridad tiene que ser el correcto, el
+monto total de las compras pendientes de pago más la compra a realizar
+no debe superar el límite de compra de la tarjeta, por último, la
+tarjeta no debe estar vencida ni suspendida.
 
-Por último, se deben generar alertas por posibles fraudes. Existe un Call Center que ante cada alerta generada automáticamente realiza un llamado telefónico al cliente, indicándole la alerta detectada y verifica si se trató de un fraude ó no.
-Se debe tener en cuenta para las alertas:
+Para cada nuevo consumo se deben guardar los datos de una factura con el
+nombre y apellido, dirección, número de tarjeta, período de la factura,
+fecha de vencimiento, todas las compras del período, y total a pagar.
+
+Por último, se deben generar alertas por posibles fraudes. Existe un
+Call Center que ante cada alerta generada automáticamente realiza un
+llamado telefónico al cliente, indicándole la alerta detectada y
+verifica si se trató de un fraude ó no.  Se debe tener en cuenta para
+las alertas:
 
 - Si una tarjeta registra dos compras en un lapso menor de un minuto en comercios distintos ubicados en el mismo código postal.
 - Si una tarjeta registra dos compras en un lapso menor de 5 minutos en comercios con diferentes códigos postales.
 - Si una tarjeta registra dos rechazos por exceso de límite en el mismo día, la tarjeta tiene que ser suspendida preventivamente.
 
-
 == Descripción
 
-En este apartado explicaremos las dificultades que tuvimos a lo largo de la realización del trabajo práctico.
-Al comienzo, la realización de las tablas lo ejecutamos de forma sencilla, sin embargo, tuvimos dificultades con algunos conceptos referidos a la compra y su facturación. Habíamos incluido la factura de una compra pero no tuvimos en cuenta el detalle de dicha factura, y además, no habíamos realizado la tabla del resumen de la tarjeta, cuya confección era un requisito del enunciado.
+En este apartado explicaremos las dificultades que tuvimos a lo largo de
+la realización del trabajo práctico.  Al comienzo, la realización de las
+tablas lo ejecutamos de forma sencilla, sin embargo, tuvimos
+dificultades con algunos conceptos referidos a la compra y su
+facturación. Habíamos incluido la factura de una compra pero no tuvimos
+en cuenta el detalle de dicha factura, y además, no habíamos realizado
+la tabla del resumen de la tarjeta, cuya confección era un requisito del
+enunciado.
 
-Por esto, decidimos crear dos nuevas tablas: *tabla detalle* y *tabla resumen*. La tabla _detalle_ comprende la información detallada generalmente en el centro de la factura. La tabla _resumen_ como lo describimos anteriormente, ésta viene con la información de los movimientos que se realizó durante un período. 
+Por esto, decidimos crear dos nuevas tablas: *tabla detalle* y *tabla
+resumen*. La tabla _detalle_ comprende la información detallada
+generalmente en el centro de la factura. La tabla _resumen_ como lo
+describimos anteriormente, ésta viene con la información de los
+movimientos que se realizó durante un período. 
 
-Otras de las tablas que tendremos a lo largo del trabajo práctico son: *tabla cliente* se refiere a la persona que realiza la compra, *tabla tarjeta* es con la cual efectúa el pago, *tabla comercio* refiere al lugar elegido para realizar sus compras, *tabla compra* es la que tiene los datos de la compra realizada, *tabla factura* es el ticket que se le genera al cliente al realizar el pago, más adelante explicaremos de manera específica dichas tablas. 
+Otras de las tablas que tendremos a lo largo del trabajo práctico son:
+*tabla cliente* se refiere a la persona que realiza la compra, *tabla
+tarjeta* es con la cual efectúa el pago, *tabla comercio* refiere al
+lugar elegido para realizar sus compras, *tabla compra* es la que tiene
+los datos de la compra realizada, *tabla factura* es el ticket que se le
+genera al cliente al realizar el pago, más adelante explicaremos de
+manera específica dichas tablas. 
 
 == Implementación
-A continuación se exponen los schemas de las tablas diseñadas como así la explicación de los atributos incorporados en dichas tablas. Además, se especificarán las correspondientes *Primary Key* (_PK_) y *Foreign Key* (_FK_) de cada tabla.
+
+A continuación se exponen los schemas de las tablas diseñadas como así
+la explicación de los atributos incorporados en dichas tablas. Además,
+se especificarán las correspondientes *Primary Key* (_PK_) y *Foreign
+Key* (_FK_) de cada tabla.
 
 === Tabla cliente
-En primer lugar, diseñamos una tabla *cliente*, los atributos que tienen lugar en este modelo son el _dni_ que será el identificador único de dicha tabla, es decir, es la _primary key_. Luego, se tienen los datos necesarios del cliente, los cuales son el _nombre_, _apellido_ y la _dirección_, además, se debe especificar el _número de teléfono_ para que el Call Center pueda notificar al cliente de un posible fraude con su tarjeta.
+
+En primer lugar, diseñamos una tabla *cliente*, los atributos que tienen
+lugar en este modelo son el _dni_ que será el identificador único de
+dicha tabla, es decir, es la _primary key_. Luego, se tienen los datos
+necesarios del cliente, los cuales son el _nombre_, _apellido_ y la
+_dirección_, además, se debe especificar el _número de teléfono_ para
+que el Call Center pueda notificar al cliente de un posible fraude con
+su tarjeta.
 
 [source, sql]
 ----
 create table cliente(
-        dni integer,
-        nombre varchar(64),
-        apellido varchar(64),
+        dni       integer,
+        nombre    varchar(64),
+        apellido  varchar(64),
         direccion varchar(64),
-        telefono integer
+        telefono  integer
 );   
 ----
 
-Como nombramos anteriormente, el _dni del cliente_ es una _primary key_ y agregamos este valor en la tabla con la siguiente sentencia:
+Como nombramos anteriormente, el _dni del cliente_ es una _primary key_
+y agregamos este valor en la tabla con la siguiente sentencia:
 
 [source, sql]
 ----
 alter table cliente add constraint cliente_pk primary key (dni); 
 ----
 
-
 === Tabla tarjeta
-*Tarjeta* es una tabla cuya _primary key_ es el número identificatorio de dicha tarjeta que consta de 16 dígitos, otro de los atributos de este schema es el propietario de la tarjeta, es decir,  el _dni del cliente_. Éste sería la _FK_ de dicha tabla. 
 
-Además, se tiene el _código de seguridad_ que consta de 3 a 4 dígitos dependiendo del banco, el _límite de compra_ diario de la tarjeta, es decir, el tope máximo que el banco financia a través de la tarjeta de crédito y el _saldo_ que posee dicha tarjeta.
-Colocamos un atributo denominado _fecha_vencimiento_ que se refiere a la fecha de expiración de la tarjeta.
+*Tarjeta* es una tabla cuya _primary key_ es el número identificatorio
+de dicha tarjeta que consta de 16 dígitos, otro de los atributos de este
+schema es el propietario de la tarjeta, es decir,  el _dni del cliente_.
+Éste sería la _FK_ de dicha tabla. 
 
-Por último, el número de la tarjeta debe corresponder a una tarjeta vigente, no debe estar vencida ni suspendida. La suspensión ocurre cuando la tarjeta registra dos rechazos por exceso de límite en el mismo día.
+Además, se tiene el _código de seguridad_ que consta de 3 a 4 dígitos
+dependiendo del banco, el _límite de compra_ diario de la tarjeta, es
+decir, el tope máximo que el banco financia a través de la tarjeta de
+crédito y el _saldo_ que posee dicha tarjeta.
 
-Para abarcar todos los estados de la tarjeta, incorporamos un atributo _estado_tarjeta_ en la tabla.
+Colocamos un atributo denominado _fecha_vencimiento_ que se refiere a la
+fecha de expiración de la tarjeta.
+
+Por último, el número de la tarjeta debe corresponder a una tarjeta
+vigente, no debe estar vencida ni suspendida. La suspensión ocurre
+cuando la tarjeta registra dos rechazos por exceso de límite en el mismo
+día.
+
+Para abarcar todos los estados de la tarjeta, incorporamos un atributo
+_estado_tarjeta_ en la tabla.
 
 [source,sql]
 ----
@@ -89,7 +146,8 @@ create table tarjeta(
 );
 ----
 
-El número de la tarjeta es la _PK_ de la tabla y se define de la siguiente manera:
+El número de la tarjeta es la _PK_ de la tabla y se define de la
+siguiente manera:
 
 [source,sql]
 ----
@@ -104,8 +162,14 @@ alter table tarjeta add constraint tarjeta_fk0 foreign key (dni_cliente) referen
 ----
 
 === Tabla comercio
-Agregamos la tabla *comercio* que consta de distintos atributos, un número identificatorio de comercio que denominamos _codigo_comercio_, el _nombre_, _dirección_ y el _código postal_ de dicho comercio.
-Colocamos el código postal del comercio en caso de que se deba emitir un alerta en el momento que la tarjeta registre dos compras con el mismo o diferente código postal en el transcurso de un tiempo dado.
+
+Agregamos la tabla *comercio* que consta de distintos atributos, un
+número identificatorio de comercio que denominamos _codigo_comercio_, el
+_nombre_, _dirección_ y el _código postal_ de dicho comercio.
+
+Colocamos el código postal del comercio en caso de que se deba emitir un
+alerta en el momento que la tarjeta registre dos compras con el mismo o
+diferente código postal en el transcurso de un tiempo dado.
 
 [source,sql]
 ----
@@ -125,7 +189,14 @@ alter table comercio add constraint comercio_pk primary key (codigo_comercio);
 ----
 
 === Tabla compra
-La tabla *compra* cuya _primary key_ es el número identificatorio de dicha compra, otro de los atributos de este schema es el _código del comercio_ donde se realizó la compra, _numero_tarjeta_ del cliente ya que el pago de la compra se realiza con la tarjeta de crédito. Además, tenemos los atributos _fecha_ y _horario_ que se refieren a las compras en un lapso de tiempo como ya mencionamos en la introducción y su respectivo _monto_.
+
+La tabla *compra* cuya _primary key_ es el número identificatorio de
+dicha compra, otro de los atributos de este schema es el _código del
+comercio_ donde se realizó la compra, _numero_tarjeta_ del cliente ya
+que el pago de la compra se realiza con la tarjeta de crédito. Además,
+tenemos los atributos _fecha_ y _horario_ que se refieren a las compras
+en un lapso de tiempo como ya mencionamos en la introducción y su
+respectivo _monto_.
 
 [source,sql]
 ----
@@ -133,34 +204,49 @@ create table compra(
 	    codigo_compra integer,
         codigo_comercio integer,
 		numero_tarjeta integer,
-		fecha date,
+		fecha date, --timestamp 2011-06-26T15:34
 		horario time,
         monto real
 );
 ----
 
-El código de la compra es la _PK_ de la tabla y se define de la siguiente manera:
+El código de la compra es la _PK_ de la tabla y se define de la
+siguiente manera:
 
 [source,sql]
 ----
 alter table compra add constraint compra_pk primary key (codigo_compra);
 ----
 
-Agregamos al _codigo_comercio_ como una _FK_ para indicar el comercio donde se realizó la compra y para poder abarcar los requisitos especificados sobre las alertas que explicamos en la introducción, y además, el número de la tarjeta también debe ser una _FK_ para referir con que tarjeta se efectuó dicha compra. 
+Agregamos al _codigo_comercio_ como una _FK_ para indicar el comercio
+donde se realizó la compra y para poder abarcar los requisitos
+especificados sobre las alertas que explicamos en la introducción, y
+además, el número de la tarjeta también debe ser una _FK_ para referir
+con que tarjeta se efectuó dicha compra. 
 
 Esto lo llevamos a cabo con las siguientes sentencias:
 
 [source,sql]
 ----
 alter table compra add contraint compra_fk0 foreign key (codigo_comercio) references comercio (codigo_comercio);
-
 alter table compra add contraint compra_fk1 foreign key (numero_tarjeta) references tarjeta (numero_tarjeta);
 ----
 
 === Tabla factura
-Una *factura* es un documento de índole comercial que indica la compra-venta de un bien o servicio, tiene validez legal y fiscal, entre otras cosas, debe incluir toda la información de la operación.
-Entre la información que incluye una factura son: el _codigo_factura_ que es la _primary key_ de la tabla, el _codigo_compra_ que se refiere dicha factura , _numero_tarjeta_ del cliente, además se tiene los atributos _codigo_comercio_ y el _monto_.
-Como toda *factura*, ésta incluye el detalle de cada artículo, para esto, creamos el atributo _detalle_articulo_ que tambien es una _FK_ de la tabla.
+
+Una *factura* es un documento de índole comercial que indica la
+compra-venta de un bien o servicio, tiene validez legal y fiscal, entre
+otras cosas, debe incluir toda la información de la operación.
+
+Entre la información que incluye una factura son: el _codigo_factura_
+que es la _primary key_ de la tabla, el _codigo_compra_ que se refiere
+dicha factura, _numero_tarjeta_ del cliente, además se tiene los
+atributos _codigo_comercio_ y el _monto_.
+
+Como toda *factura*, ésta incluye el detalle de cada artículo, para
+esto, creamos el atributo _detalle_articulo_ que tambien es una _FK_ de
+la tabla.
+
 [source,sql]
 ----
 create table factura(
@@ -168,8 +254,8 @@ create table factura(
         codigo_compra integer,
 		numero_tarjeta integer,
 		codigo_comercio integer,
-		monto real,
-		detalle_articulo integer
+		monto real
+		-- detalle_articulo integer
 );
 ----
 
@@ -200,11 +286,14 @@ Además, posee los siguientes atributos: _cantidad_ se refiere a la cantidad de 
 [source,sql]
 ----
 create table detalle(
+		detalle_id int,
+	    codigo_factura integer,
 	    codigo_articulo integer,
 		cantidad integer,
 		precio_unitario real
 );
 ----
+
 Añadimos la _PK_ del detalle de la siguiente manera:
 
 [source,sql]
@@ -213,14 +302,19 @@ alter table detalle add constraint detalle_pk primary key (codigo_articulo);
 ----
 
 === Tabla resumen
+
 El *resumen* de la *tarjeta* es un documento donde se encuentra toda la información de las compras realizadas durante un período dado indicando el monto total a pagar. 
-La tabla *resumen* cuyas  _foreign key_ son:  _codigo_factura_ y _numero_tarjeta_. Otros atributos de la tabla son: _fecha_vencimiento_ y _periodo_facturado_ se refiere al período mensual en el que se facturan las compras de cada mes.
+
+La tabla *resumen* cuyas  _foreign key_ son: _codigo_factura_ y
+_numero_tarjeta_. Otros atributos de la tabla son: _fecha_vencimiento_ y
+_periodo_facturado_ se refiere al período mensual en el que se facturan
+las compras de cada mes.
 
 [source,sql]
 ----
 create table resumen(
         codigo_resumen,
-	    codigo_factura integer,
+	    --codigo_factura integer,
 		periodo_facturado integer,
 		fecha_vencimiento date,
 		total_pagar real,
@@ -234,15 +328,26 @@ El número que identifica el resumen es _codigo_resumen_ y se declara de la sigu
 ----
 alter table resumen add constraint resumen_pk primary key (codigo_resumen);
 ----
+
 Añadimos las _FK's_ de la tabla _resumen_ de la siguiente manera:
 
 ----
 alter table resumen add constraint resumen_fk0 foreign key (codigo_factura) references factura (codigo_factura);
-
 alter table resumen add constraint resumen_fk1 foreign key (numero_tarjeta) references tarjeta (numero_tarjeta);
 ----
 
 == Conclusiones
-Este trabajo práctico se ha realizado con el objetivo de diseñar y explicar un modelo de datos relativo a tarjetas de crédito. Para llegar a ese objetivo se tuvo que realizar los distintos schemas para cubrir con todos los requerimientos solicitados.
 
-Para concluir, la ejecución de este trabajo práctico nos resultó satisfactorio, pero como describimos anteriormente se tuvieron algunas dificultades que supimos resolverlas eficazmente. Estas dificultades diferían en cuanto al concepto de compra y su facturación, para ello, separamos algunos atributos que no deberían haber estado en una misma tabla, y además, realizamos la contrucción de las tablas _detalle_ y _resumen_.
+Este trabajo práctico se ha realizado con el objetivo de diseñar y
+explicar un modelo de datos relativo a tarjetas de crédito. Para llegar
+a ese objetivo se tuvo que realizar los distintos schemas para cubrir
+con todos los requerimientos solicitados.
+
+Para concluir, la ejecución de este trabajo práctico nos resultó
+satisfactorio, pero como describimos anteriormente se tuvieron algunas
+dificultades que supimos resolverlas eficazmente.
+
+Estas dificultades diferían en cuanto al concepto de compra y su
+facturación, para ello, separamos algunos atributos que no deberían
+haber estado en una misma tabla, y además, realizamos la contrucción de
+las tablas _detalle_ y _resumen_.
