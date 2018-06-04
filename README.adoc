@@ -72,7 +72,7 @@ alter table cliente add constraint cliente_pk primary key (dni);
 Además, se tiene el _código de seguridad_ que consta de 3 a 4 dígitos dependiendo del banco, el _límite de compra_ diario de la tarjeta, es decir, el tope máximo que el banco financia a través de la tarjeta de crédito y el _saldo_ que posee dicha tarjeta.
 Colocamos un atributo denominado _fecha_vencimiento_ que se refiere a la fecha de expiración de la tarjeta.
 
-Por último, el número de la tarjeta debe corresponder a una tarjeta vigente, no debe estar vencida, ni suspendida. La suspensión ocurre cuando la tarjeta registra dos rechazos por exceso de límite en el mismo día.
+Por último, el número de la tarjeta debe corresponder a una tarjeta vigente, no debe estar vencida ni suspendida. La suspensión ocurre cuando la tarjeta registra dos rechazos por exceso de límite en el mismo día.
 
 Para abarcar todos los estados de la tarjeta, incorporamos un atributo _estado_tarjeta_ en la tabla.
 
@@ -125,7 +125,7 @@ alter table comercio add constraint comercio_pk primary key (codigo_comercio);
 ----
 
 === Tabla compra
-La tabla *compra* cuya _primary key_ es el número identificatorio de dicha compra, otro de los atributos de este schema es el _código del comercio_ donde se realizó la compra, _numero_tarjeta_ del cliente ya que el pago de la compra se realiza con la tarjeta de crédito. Además, tenemos el atributo _fecha_ y _horario_ que se refiere a las compras en un lapso de tiempo como ya mencionamos en la introducción y su respectivo _monto_.
+La tabla *compra* cuya _primary key_ es el número identificatorio de dicha compra, otro de los atributos de este schema es el _código del comercio_ donde se realizó la compra, _numero_tarjeta_ del cliente ya que el pago de la compra se realiza con la tarjeta de crédito. Además, tenemos los atributos _fecha_ y _horario_ que se refieren a las compras en un lapso de tiempo como ya mencionamos en la introducción y su respectivo _monto_.
 
 [source,sql]
 ----
@@ -183,13 +183,13 @@ También añadimos las _FK's_ de la tabla _factura_ de la siguiente manera:
 
 [source,sql]
 ----
-alter table factura add constraint factura_fk0 foreign key(codigo_compra) references compra(codigo_compra);
+alter table factura add constraint factura_fk0 foreign key (codigo_compra) references compra (codigo_compra);
 
-alter table factura add constraint factura_fk1 foreign key (numero_tarjeta) references tarjeta(numero_tarjeta);
+alter table factura add constraint factura_fk1 foreign key (numero_tarjeta) references tarjeta (numero_tarjeta);
 
-alter table factura add constraint factura_fk2 foreign key (codigo_comercio) references comercio(codigo_comercio);
+alter table factura add constraint factura_fk2 foreign key (codigo_comercio) references comercio (codigo_comercio);
 
-alter table factura add constraint factura_fk3 foreign key (detalle_articulo) references detalle(codigo_articulo);
+alter table factura add constraint factura_fk3 foreign key (detalle_articulo) references detalle (codigo_articulo);
 ----
 
 
@@ -214,7 +214,7 @@ alter table detalle add constraint detalle_pk primary key (codigo_articulo);
 
 === Tabla resumen
 El *resumen* de la *tarjeta* es un documento donde se encuentra toda la información de las compras realizadas durante un período dado indicando el monto total a pagar. 
-La tabla *resumen* cuyas  _foreign key_ son:  _codigo_factura_ y _numero_tarjeta_. Otros atributos de la tabla son:_fecha_vencimiento_ y _periodo_facturado_ se refiere al período mensual en el que se facturan las compras de cada mes.
+La tabla *resumen* cuyas  _foreign key_ son:  _codigo_factura_ y _numero_tarjeta_. Otros atributos de la tabla son: _fecha_vencimiento_ y _periodo_facturado_ se refiere al período mensual en el que se facturan las compras de cada mes.
 
 [source,sql]
 ----
@@ -237,12 +237,12 @@ alter table resumen add constraint resumen_pk primary key (codigo_resumen);
 Añadimos las _FK's_ de la tabla _resumen_ de la siguiente manera:
 
 ----
-alter table resumen add constraint resumen_fk0 foreign key (codigo_factura) references factura(codigo_factura);
+alter table resumen add constraint resumen_fk0 foreign key (codigo_factura) references factura (codigo_factura);
 
-alter table resumen add constraint resumen_fk1 foreign key (numero_tarjeta) references tarjeta(numero_tarjeta);
+alter table resumen add constraint resumen_fk1 foreign key (numero_tarjeta) references tarjeta (numero_tarjeta);
 ----
 
 == Conclusiones
-Este trabajo práctico se ha realizado con el objetivo de diseñar y explicar un modelo de datos relativo a tarjetas de creditos. Para llegar a ese objetivo se tuvo que realizar los distintos schemas para cubrir con todos los requerimientos solicitados.
+Este trabajo práctico se ha realizado con el objetivo de diseñar y explicar un modelo de datos relativo a tarjetas de crédito. Para llegar a ese objetivo se tuvo que realizar los distintos schemas para cubrir con todos los requerimientos solicitados.
 
 Para concluir, la ejecución de este trabajo práctico nos resultó satisfactorio, pero como describimos anteriormente se tuvieron algunas dificultades que supimos resolverlas eficazmente. Estas dificultades diferían en cuanto al concepto de compra y su facturación, para ello, separamos algunos atributos que no deberían haber estado en una misma tabla, y ademas, realizamos la contrucción de las tablas _detalle_ y _resumen_.
