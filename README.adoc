@@ -26,11 +26,11 @@ Para cada nuevo consumo se deben guardar los datos de una factura con el nombre 
 
 Por último, se deben generar alertas por posibles fraudes. Existe un Call Center que ante cada alerta generada automáticamente realiza un llamado telefónico al cliente, indicándole la alerta detectada y verifica si se trató de un fraude ó no.
 
-NOTE: Se debe tener en cuenta para las alertas:
+Se debe tener en cuenta para las alertas:
 
-    - Si una tarjeta registra dos compras en un lapso menor de un minuto en comercios distintos ubicados en el mismo código postal.
-    - Si una tarjeta registra dos compras en un lapso menor de 5 minutos en comercios con diferentes códigos postales.
-    - Si una tarjeta registra dos rechazos por exceso de límite en el mismo día, la tarjeta tiene que ser suspendida preventivamente.
+- Si una tarjeta registra dos compras en un lapso menor de un minuto en comercios distintos ubicados en el mismo código postal.
+- Si una tarjeta registra dos compras en un lapso menor de 5 minutos en comercios con diferentes códigos postales.
+- Si una tarjeta registra dos rechazos por exceso de límite en el mismo día, la tarjeta tiene que ser suspendida preventivamente.
 
 
 == Descripción
