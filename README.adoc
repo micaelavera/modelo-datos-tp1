@@ -1,5 +1,7 @@
 = Bases de Datos I: Trabajo Práctico 1
-Liz Moreno López <lilita.moreno@hotmail.com>; Micaela Vera <micavera2010@hotmail.com>; Verónica Juarez <veronicajuarez01@hotmail.com>
+Liz Moreno López <lilita.moreno@hotmail.com>; 
+Micaela Vera <micavera2010@hotmail.com>; 
+Verónica Juarez <veronicajuarez01@hotmail.com>
 {docdate}. Docentes Hernán Rondelli y Mariano Trigila (COM-01)
 :numbered:
 :source-highlighter: highlight.js
@@ -13,7 +15,6 @@ Este modelo debe cumplir los siguientes requisitos:
 - Generación de la factura. 
 - Alerta a clientes.
 
-//Se debe ser breve, conciso, y simple. Se debe incluir sólo lo relevante que ayude a entender el trabajo práctico. Ok
 
 == Introducción
 
@@ -33,11 +34,12 @@ Se debe tener en cuenta para las alertas:
 - Si una tarjeta registra dos compras en un lapso menor de 5 minutos en comercios con diferentes códigos postales.
 - Si una tarjeta registra dos rechazos por exceso de límite en el mismo día, la tarjeta tiene que ser suspendida preventivamente.
 
-//*(Longitud: 3–5 párrafos)*
 
 == Descripción
 
 En este apartado explicaremos las dificultades que tuvimos a lo largo de la realización del trabajo práctico.
+Al comiendo la realización de las tablas lo realizamos de forma sencilla, luego tuvimos problemas con  la factura y la tarjeta(que en un periodo llega un resumen con los movimientos realizados con la misma) ya que las mismas tienen mucha información. Entonces decidimos crear dos nuevas tablas: *tabla detalle*, *tabla resumen*. La tabla detalle comprende la informacion detallada generalmente en el centro de la factura. La tabla resumen como lo describimos
+anteriormente, esta viene con información de los movimientos que se realizó durante un período, que más adelante explicaremos espefíficamente.
 
 
 //En esta sección pueden incluirse las dificultades que tuvieron, las soluciones encontradas, y las decisiones que fueron tomando a lo largo del trabajo práctico.
