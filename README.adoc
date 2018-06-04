@@ -39,7 +39,7 @@ Al comienzo, la realización de las tablas lo ejecutamos de forma sencilla, sin 
 
 Por esto, decidimos crear dos nuevas tablas: *tabla detalle* y *tabla resumen*. La tabla _detalle_ comprende la información detallada generalmente en el centro de la factura. La tabla _resumen_ como lo describimos anteriormente, ésta viene con la información de los movimientos que se realizó durante un período. 
 
-Otras de las tablas que tendremos a lo largo del trabajo práctico son: *tabla cliente* es la persona que reliza la compra, *tabla tarjeta* es con la cual se efectua el pago, *tabla comercio* lugar elegido para realizar sus compras, *tabla compra* es la que tiene los datos de la compra realizada, *tabla factura* es el ticket que se le genera al cliente cuando terminó de pagar, que más adelante explicaremos de manera específica dichas tablas. 
+Otras de las tablas que tendremos a lo largo del trabajo práctico son: *tabla cliente* se refiere a la persona que realiza la compra, *tabla tarjeta* es con la cual efectúa el pago, *tabla comercio* refiere al lugar elegido para realizar sus compras, *tabla compra* es la que tiene los datos de la compra realizada, *tabla factura* es el ticket que se le genera al cliente al realizar el pago, más adelante explicaremos de manera específica dichas tablas. 
 
 == Implementación
 A continuación se exponen los schemas de las tablas diseñadas como así la explicación de los atributos incorporados en dichas tablas. Además, se especificarán las correspondientes *Primary Key* (_PK_) y *Foreign Key* (_FK_) de cada tabla.
