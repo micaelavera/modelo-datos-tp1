@@ -233,10 +233,9 @@ El número que identifica el resumen es _codigo_factura_ y se declara de la sigu
 [source,sql]
 ----
 alter table resumen add constraint resumen_pk primary key (codigo_resumen);
-
+----
 Añadimos las _FK's_ de la tabla _resumen_ de la siguiente manera:
 
-[source,sql]
 ----
 alter table resumen add constraint resumen_fk0 foreign key (codigo_factura) references factura(codigo_factura);
 
